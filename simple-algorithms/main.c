@@ -5,6 +5,7 @@
 
 void task1();
 void task2();
+void task3();
 
 int main() {
     char char_choice[3];
@@ -42,7 +43,7 @@ int main() {
                 task2();
                 break;
             case 3:
-                printf("[ОШИБКА!]: Задание 3 не реализовано!\n");
+                task3();
                 break;
             case 4:
                 printf("[ОШИБКА!]: Задание 4 не реализовано!\n");
@@ -126,4 +127,76 @@ void task2() {
     }
 
     printf("Максимальное число: %d\n", max_value);
+}
+
+// 3. Написать программу обмена значениями двух целочисленных переменных:
+// a. с использованием третьей переменной;
+// b. *без использования третьей переменной.
+
+void task3A() {
+    printf("\n");
+    int first = 0;
+    int second = 0;
+
+    printf("Введите первое число: ");
+    scanf("%d", &first);
+
+    printf("Введите второе число: ");
+    scanf("%d", &second);
+    
+    int temp = first;
+    first = second;
+    second = temp;
+    printf("После замены местами: %d, %d\n", first, second);
+}
+
+void task3B() {
+printf("\n");
+    int first = 0;
+    int second = 0;
+
+    printf("Введите первое число: ");
+    scanf("%d", &first);
+
+    printf("Введите второе число: ");
+    scanf("%d", &second);
+    
+    first = first ^ second;
+    second = first ^ second;
+    first = first ^ second;
+    printf("После замены местами: %d, %d\n", first, second);
+}
+
+void task3() {
+    printf("\n");
+
+    char char_choice[3];
+	int int_choice = 0;
+    int exit_code = -1;
+
+	do {
+		printf("\n\033[0;37mОбмен значениями двух целочисленных переменных\n");
+        printf("-1. Назад\n");
+		printf("1. с использованием третьей переменной\n");
+		printf("2. без использования третьей переменной\n");
+
+        printf("Ваш выбор: ");
+		scanf("%s", char_choice);
+		int_choice = atoi(char_choice);
+
+		switch (int_choice)
+		{
+            case 1:
+                task3A();
+                break;
+            case 2:
+                task3B();
+                break;
+			default:
+                if (int_choice != exit_code) {
+                    printf("\n\033[1;31m[ОШИБКА!] Неверный ввод! Попробуйте еще раз.\n");
+                }
+                break;
+		}
+	} while(int_choice != exit_code);
 }
