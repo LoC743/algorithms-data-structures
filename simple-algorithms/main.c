@@ -4,6 +4,7 @@
 #include <stdlib.h>
 
 void task1();
+void task2();
 
 int main() {
     char char_choice[3];
@@ -38,7 +39,7 @@ int main() {
                 task1();
                 break;
             case 2:
-                printf("[ОШИБКА!]: Задание 2 не реализовано!\n");
+                task2();
                 break;
             case 3:
                 printf("[ОШИБКА!]: Задание 3 не реализовано!\n");
@@ -102,4 +103,27 @@ void task1() {
     double index = weight / (height * height);
 
     printf("Полученный индекс массы: %lf\n", index);
+}
+
+// 2. Найти максимальное из четырех чисел. Массивы не использовать.
+void task2() {
+    printf("\n");
+
+    int count = 4;
+    int max_value = 0;
+    int current_value = 0;
+
+    printf("Введите %d числа.\n", count);
+    for (int i = 0; i < count; ++i) {
+        printf("Введите число №%d: ", (i+1));
+        scanf("%d", &current_value);
+
+        if ((i != 0) && (current_value > max_value)) {
+            max_value = current_value;
+        } else if (i == 0) {
+            max_value = current_value;
+        }
+    }
+
+    printf("Максимальное число: %d\n", max_value);
 }
