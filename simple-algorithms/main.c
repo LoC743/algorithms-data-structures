@@ -16,6 +16,7 @@ void task8();
 void task9();
 void task10();
 void task11();
+void task12();
 
 int main() {
     char char_choice[3];
@@ -80,7 +81,7 @@ int main() {
                 task11();
                 break;
             case 12:
-                printf("[ОШИБКА!]: Задание 12 не реализовано!\n");
+                task12();
                 break;
             case 13:
                 printf("[ОШИБКА!]: Задание 13 не реализовано!\n");
@@ -415,4 +416,28 @@ void task11() {
     double mean = sum / count;
 
     printf("Среднее арифметичкское всех положительных четных чисел, оканчивающихся на 8: %lf", mean);
+}
+
+// 12. Написать функцию нахождения максимального из трех чисел.
+void task12() {
+    double first = 0;
+    double second = 0;
+    double third = 0;
+
+    printf("\nВведите первое число: ");
+    scanf("%lf", &first);
+    printf("Введите второе число: ");
+    scanf("%lf", &second);
+    printf("Введите третье число: ");
+    scanf("%lf", &third);
+
+    double max_value = first;
+
+    if (second > max_value && second > third) {
+        max_value = second;
+    } else if (third > max_value && third > second) {
+        max_value = third;
+    }
+
+    printf("\nМаксимальное из трех чисел: %lf\n", max_value);
 }
