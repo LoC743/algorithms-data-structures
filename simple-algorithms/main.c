@@ -12,6 +12,7 @@ void task5();
 void task6();
 void task7();
 void task8();
+void task9();
 
 int main() {
     char char_choice[3];
@@ -67,7 +68,7 @@ int main() {
                 task8();
                 break;
             case 9:
-                printf("[ОШИБКА!]: Задание 9 не реализовано!\n");
+                task9();
                 break;
             case 10:
                 printf("[ОШИБКА!]: Задание 10 не реализовано!\n");
@@ -332,4 +333,31 @@ void task8() {
 
     printf("\nКвадрат первого числа: %lf\nКуб первого числа: %lf\nКвадрат второго числа: %lf\nКуб второго числа: %lf\n",
         first_square, first_cube, second_square, second_cube);
+}
+
+// 9. Даны целые положительные числа N и K. Используя только операции сложения и вычитания, найти частное от деления нацело N на K, а также остаток от этого деления.
+void task9() {
+    int n = 0;
+    int k = 0;
+
+    printf("\nВведите N: ");
+    scanf("%d", &n);
+    printf("\nВведите K: ");
+    scanf("%d", &k);
+
+    if (n < 0 || k < 0) {
+        printf("Ошибка! Числа должны быть положительными.");
+        return;
+    }
+
+    int quotient = 0;
+    int remainder = 0;
+
+    while (n >= k) {
+        quotient += 1;
+        n -= k;
+    }
+    remainder = n;
+
+    printf("\nЧастное: %d\nОстаток: %d\n", quotient, remainder);
 }
