@@ -8,6 +8,7 @@ void task1();
 void task2();
 void task3();
 void task4();
+void task5();
 
 int main() {
     char char_choice[3];
@@ -51,7 +52,7 @@ int main() {
                 task4();
                 break;
             case 5:
-                printf("[ОШИБКА!]: Задание 5 не реализовано!\n");
+                task5();
                 break;
             case 6:
                 printf("[ОШИБКА!]: Задание 6 не реализовано!\n");
@@ -226,8 +227,30 @@ void task4() {
         printf("Первый корень x0 = %lf\nВторой корень x1 = %lf\n", x0, x1);
     } else if (discriminant == 0) {
         double x = (-b) / (2 * a);
-        printf("Один корень x = %lf", x);
+        printf("Один корень x = %lf\n", x);
     } else {
         printf("Действительный корней нет.\n");
+    }
+}
+
+// 5. С клавиатуры вводится номер месяца. Требуется определить, к какому времени года он относится.
+void task5() {
+    int month_number = 0;
+    printf("\nВведите номер месяца: ");
+    scanf("%d", &month_number);
+
+    if (month_number < 1 || month_number > 12) {
+        printf("Такого месяца не существует!\n");
+        return;
+    }
+
+    if (month_number == 12 || month_number == 1 || month_number == 2) {
+        printf("Месяц под номером %d относится к зиме.\n", month_number);
+    } else if (month_number == 3 || month_number == 4 || month_number == 5) {
+        printf("Месяц под номером %d относится к весне.\n", month_number);
+    } else if (month_number == 6 || month_number == 7 || month_number == 8) {
+        printf("Месяц под номером %d относится к лету.\n", month_number);
+    } else if (month_number == 9 || month_number == 10 || month_number == 11) {
+        printf("Месяц под номером %d относится к осени.\n", month_number);
     }
 }
