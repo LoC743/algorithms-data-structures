@@ -15,6 +15,7 @@ void task7();
 void task8();
 void task9();
 void task10();
+void task11();
 
 int main() {
     char char_choice[3];
@@ -76,7 +77,7 @@ int main() {
                 task10();
                 break;
             case 11:
-                printf("[ОШИБКА!]: Задание 11 не реализовано!\n");
+                task11();
                 break;
             case 12:
                 printf("[ОШИБКА!]: Задание 12 не реализовано!\n");
@@ -390,4 +391,28 @@ void task10() {
     } else {
         printf("\nВ числе нет нечетных цифр.\n");
     }
+}
+
+// 11. С клавиатуры вводятся числа, пока не будет введен 0. Подсчитать среднее арифметическое всех положительных четных чисел, оканчивающихся на 8.
+void task11() {
+    int exit_code = 0;
+    int input_number = 0;
+    int count = 0;
+    int sum = 0;
+
+    printf("\nВводите числа. Число 0 будет означать конец ввода.\n");
+	do {
+        printf("Ваше число: ");
+        scanf("%d", &input_number);
+
+        if (input_number > 0 && input_number % 10 == 8) {
+            ++count;
+            sum += input_number;
+        }
+
+	} while(input_number != exit_code);
+
+    double mean = sum / count;
+
+    printf("Среднее арифметичкское всех положительных четных чисел, оканчивающихся на 8: %lf", mean);
 }
