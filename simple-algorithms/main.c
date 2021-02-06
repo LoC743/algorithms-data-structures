@@ -17,6 +17,7 @@ void task9();
 void task10();
 void task11();
 void task12();
+void task13();
 
 int main() {
     char char_choice[3];
@@ -84,7 +85,7 @@ int main() {
                 task12();
                 break;
             case 13:
-                printf("[ОШИБКА!]: Задание 13 не реализовано!\n");
+                task13();
                 break;
             case 14:
                 printf("[ОШИБКА!]: Задание 14 не реализовано!\n");
@@ -440,4 +441,59 @@ void task12() {
     }
 
     printf("\nМаксимальное из трех чисел: %lf\n", max_value);
+}
+
+// 13. * Написать функцию, генерирующую случайное число от 1 до 100.
+// а) с использованием стандартной функции rand()
+// б) без использования стандартной функции rand()
+void task13A() {
+    // с использованием стандартной функции rand()
+    int random_int = (rand() % 100) + 1;
+    printf("\nСлучайное число сгенерированное с функцией rand(): %d\n", random_int);
+}
+
+int seed = 2;
+void task13B() {
+    // без использования стандартной функции rand()
+    // Линейный конгруэнтный ГПСЧ (LCPRNG) https://en.wikipedia.org/wiki/Linear_congruential_generator
+    int a = 45;
+    int c = 21;
+    int m = 67;
+    seed = (a * seed + c) % m;
+
+    printf("\nЛинейный конгруэнтный ГПСЧ: %d\n", seed);
+}
+
+void task13() {
+printf("\n");
+
+    char char_choice[3];
+	int int_choice = 0;
+    int exit_code = -1;
+
+	do {
+		printf("\n\033[0;37mГенерация случайного числа от 1 до 100.\n");
+        printf("-1. Назад\n");
+		printf("1. с использованием стандартной функции rand()\n");
+		printf("2. без использования стандартной функции rand()\n");
+
+        printf("Ваш выбор: ");
+		scanf("%s", char_choice);
+		int_choice = atoi(char_choice);
+
+		switch (int_choice)
+		{
+            case 1:
+                task13A();
+                break;
+            case 2:
+                task13B();
+                break;
+			default:
+                if (int_choice != exit_code) {
+                    printf("\n\033[1;31m[ОШИБКА!] Неверный ввод! Попробуйте еще раз.\n");
+                }
+                break;
+		}
+	} while(int_choice != exit_code);
 }
