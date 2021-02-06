@@ -18,6 +18,7 @@ void task10();
 void task11();
 void task12();
 void task13();
+void task14();
 
 int main() {
     char char_choice[3];
@@ -88,7 +89,7 @@ int main() {
                 task13();
                 break;
             case 14:
-                printf("[ОШИБКА!]: Задание 14 не реализовано!\n");
+                task14();
                 break;
 			default:
                 if (int_choice != exit_code) {
@@ -496,4 +497,32 @@ printf("\n");
                 break;
 		}
 	} while(int_choice != exit_code);
+}
+
+// 14. *Автоморфные числа. Натуральное число называется автоморфным, если оно равно последним цифрам своего квадрата.
+// Например, 252 = 625. Напишите программу, которая вводит натуральное число N и выводит на экран все автоморфные числа, не превосходящие N.
+int number_of_digits(int n) {
+    if (n == 0) return 1;
+    return floor (log10 (abs (n))) + 1;
+}
+
+void task14() {
+    int n = 0;
+
+    printf("\nВведите N: ");
+    scanf("%d", &n);
+
+    if (n <= 0) {
+        printf("Ошибка! Число должно быть больше 0 (N > 0).");
+        return;
+    }
+
+    for (long long int i = 0; i <= n; ++i) {
+        long long int digits = number_of_digits(i);
+        long long int div_number = pow(10, digits);
+
+        if (((i*i) % div_number) == i) {
+            printf("%lld %lld\n", i, (i*i));
+        }
+    }
 }
