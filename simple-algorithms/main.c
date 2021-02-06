@@ -11,6 +11,7 @@ void task4();
 void task5();
 void task6();
 void task7();
+void task8();
 
 int main() {
     char char_choice[3];
@@ -63,7 +64,7 @@ int main() {
                 task7();
                 break;
             case 8:
-                printf("[ОШИБКА!]: Задание 8 не реализовано!\n");
+                task8();
                 break;
             case 9:
                 printf("[ОШИБКА!]: Задание 9 не реализовано!\n");
@@ -311,5 +312,24 @@ void task7() {
     } else {
         printf("\nПоля имеют разные цвета.");
     }
+}
 
+// 8. Ввести a и b и вывести квадраты и кубы чисел от a до b.
+void task8() {
+    double first = 0;
+    double second = 0;
+
+    printf("\nВведите a: ");
+    scanf("%lf", &first);
+    printf("\nВведите b: ");
+    scanf("%lf", &second);
+
+    double first_square = first*first;
+    double second_square = second*second;
+
+    double first_cube = first_square*first;
+    double second_cube = second_square*second;
+
+    printf("\nКвадрат первого числа: %lf\nКуб первого числа: %lf\nКвадрат второго числа: %lf\nКуб второго числа: %lf\n",
+        first_square, first_cube, second_square, second_cube);
 }
