@@ -2,10 +2,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void task1();
 void task2();
 void task3();
+void task4();
 
 int main() {
     char char_choice[3];
@@ -46,7 +48,7 @@ int main() {
                 task3();
                 break;
             case 4:
-                printf("[ОШИБКА!]: Задание 4 не реализовано!\n");
+                task4();
                 break;
             case 5:
                 printf("[ОШИБКА!]: Задание 5 не реализовано!\n");
@@ -199,4 +201,33 @@ void task3() {
                 break;
 		}
 	} while(int_choice != exit_code);
+}
+
+// 4. Написать программу нахождения корней заданного квадратного уравнения.
+void task4() {
+    double a = 0;
+    double b = 0;
+    double c = 0;
+
+    printf("\nВведите коэффициенты для уравнения вида: ax^2 + bx + c = 0.\n");
+    printf("a = ");
+    scanf("%lf", &a);
+    printf("b = ");
+    scanf("%lf", &b);
+    printf("c = ");
+    scanf("%lf", &c);
+
+    double discriminant = b*b - 4*a*c;
+
+    if (discriminant > 0) {
+        double x0 = (-b + sqrt(discriminant)) / (2 * a);
+        double x1 = (-b - sqrt(discriminant)) / (2 * a);
+
+        printf("Первый корень x0 = %lf\nВторой корень x1 = %lf\n", x0, x1);
+    } else if (discriminant == 0) {
+        double x = (-b) / (2 * a);
+        printf("Один корень x = %lf", x);
+    } else {
+        printf("Действительный корней нет.\n");
+    }
 }
