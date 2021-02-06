@@ -10,6 +10,7 @@ void task3();
 void task4();
 void task5();
 void task6();
+void task7();
 
 int main() {
     char char_choice[3];
@@ -59,7 +60,7 @@ int main() {
                 task6();
                 break;
             case 7:
-                printf("[ОШИБКА!]: Задание 7 не реализовано!\n");
+                task7();
                 break;
             case 8:
                 printf("[ОШИБКА!]: Задание 8 не реализовано!\n");
@@ -275,4 +276,40 @@ void task6() {
     } else if (age_mod == 1) {
         printf("%d год.\n", age);
     }
+}
+
+// 7. С клавиатуры вводятся числовые координаты двух полей шахматной доски (x1,y1,x2,y2). Требуется определить, относятся поля к одному цвету или нет.
+struct Point {
+    int x;
+    int y;
+};
+
+void task7() {
+    struct Point point1;
+    struct Point point2;
+
+    printf("\nВведите координаты первого поля: ");
+    printf("Введите x1: ");
+    scanf("%d", &point1.x);
+    printf("Введите y1: ");
+    scanf("%d", &point1.y);
+    printf("Введите x2: ");
+    scanf("%d", &point2.x);
+    printf("Введите y2: ");
+    scanf("%d", &point2.y);
+
+    if ((point1.x < 1 || point1.x > 8) ||
+        (point1.y < 1 || point1.y > 8) ||
+        (point2.x < 1 || point2.x > 8) ||
+        (point2.y < 1 || point2.y > 8)) {
+            printf("\nОшибка! Координаты шахматной доски могут принимать значения от 1 до 8.\n");
+            return;
+        }
+
+    if ((point1.x + point1.y) % 2 == (point2.x + point2.y) % 2) {
+        printf("\nПоля имеют одинаковые цвета.");
+    } else {
+        printf("\nПоля имеют разные цвета.");
+    }
+
 }
