@@ -9,6 +9,7 @@ void task2();
 void task3();
 void task4();
 void task5();
+void task6();
 
 int main() {
     char char_choice[3];
@@ -55,7 +56,7 @@ int main() {
                 task5();
                 break;
             case 6:
-                printf("[ОШИБКА!]: Задание 6 не реализовано!\n");
+                task6();
                 break;
             case 7:
                 printf("[ОШИБКА!]: Задание 7 не реализовано!\n");
@@ -252,5 +253,26 @@ void task5() {
         printf("Месяц под номером %d относится к лету.\n", month_number);
     } else if (month_number == 9 || month_number == 10 || month_number == 11) {
         printf("Месяц под номером %d относится к осени.\n", month_number);
+    }
+}
+
+// 6. Ввести возраст человека (от 1 до 150 лет) и вывести его вместе с последующим словом «год», «года» или «лет».
+void task6() {
+    int age = 0;
+    printf("\nВведите возраст человека (от 1 до 150): ");
+    scanf("%d", &age);
+
+    if (age < 1 || age > 150) {
+        printf("Ошибка! Возраст человека должен быть от 1 до 150.\n");
+        return;
+    }
+
+    int age_mod = age % 10;
+    if (age_mod == 0 || age_mod == 5 || age_mod == 6 || age_mod == 7 || age_mod == 8 || age_mod == 9) {
+        printf("%d лет.\n", age);
+    } else if (age_mod == 2 || age_mod == 3 || age_mod == 4) {
+        printf("%d года.\n", age);
+    } else if (age_mod == 1) {
+        printf("%d год.\n", age);
     }
 }
