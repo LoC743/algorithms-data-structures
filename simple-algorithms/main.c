@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 
 void task1();
 void task2();
@@ -13,6 +14,7 @@ void task6();
 void task7();
 void task8();
 void task9();
+void task10();
 
 int main() {
     char char_choice[3];
@@ -71,7 +73,7 @@ int main() {
                 task9();
                 break;
             case 10:
-                printf("[ОШИБКА!]: Задание 10 не реализовано!\n");
+                task10();
                 break;
             case 11:
                 printf("[ОШИБКА!]: Задание 11 не реализовано!\n");
@@ -360,4 +362,32 @@ void task9() {
     remainder = n;
 
     printf("\nЧастное: %d\nОстаток: %d\n", quotient, remainder);
+}
+
+// 10. Дано целое число N (> 0). С помощью операций деления нацело и взятия остатка от деления определить,
+// имеются ли в записи числа N нечетные цифры. Если имеются, то вывести True, если нет — вывести False.
+void task10() {
+    int n = 0;
+
+    printf("\nВведите N: ");
+    scanf("%d", &n);
+
+    if (n <= 0) {
+        printf("\nОшибка! Число N должно быть больше 0 (N > 0).\n");
+        return;
+    }
+
+    bool is_odd = false;
+    do {
+        if (n % 10 % 2 == 1) {
+            is_odd = true;
+        }
+        n /= 10;
+    } while (n != 0 && !is_odd);
+
+    if (is_odd) {
+        printf("\nВ числе есть нечетные цифр.\n");
+    } else {
+        printf("\nВ числе нет нечетных цифр.\n");
+    }
 }
