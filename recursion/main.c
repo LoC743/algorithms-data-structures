@@ -129,7 +129,37 @@ void task2B() {
     printf("Результат: %lf\n", result);
 }
 
-void task2C() {}
+double pow_bin_recursion(double number, int power) {
+    if (power == 0) {
+        return 1;
+    }
+    double even_odd = (power % 2) ? number : 1;
+    double result = pow_bin_recursion(number, power / 2);
+    return even_odd * result * result;
+}
+
+double pow_bin(double number, int power) {
+    double result = pow_bin_recursion(number, power);
+
+    if (power > 0) {
+        return result;
+    } else {
+        return 1/result;
+    }
+}
+
+void task2C() {
+    double number = 0;
+    int power = 0;
+
+    printf("\nВведите число: ");
+    scanf("%lf", &number);
+    printf("Введите степень: ");
+    scanf("%d", &power);
+
+    double result = pow_bin(number, power);
+    printf("Результат: %lf\n", result);
+}
 
 void task2() {
 char char_choice[3];
