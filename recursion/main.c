@@ -85,14 +85,43 @@ void task2A() {
 
     printf("\nВведите число: ");
     scanf("%d", &number);
-    printf("\nВведите степень: ");
+    printf("Введите степень: ");
     scanf("%d", &power);
 
     int result = pow_it(number, power);
     printf("Результат: %d\n", result);
 }
 
-void task2B() {}
+double pow_recursion(double number, int power, double multiply_by) {
+    if (power == 0) {
+        return 1;
+    } else if (power == 1) {
+        return multiply_by*number;
+    } else if (power == -1) {
+        return 1/(number*multiply_by);
+    }
+
+    if (power > 0) {
+        multiply_by *= pow_recursion(number, power-1, number);
+    } else {
+        multiply_by *= pow_recursion(number, power+1, number);
+    }
+
+    return multiply_by;
+}
+
+void task2B() {
+    double number = 0;
+    int power = 0;
+
+    printf("\nВведите число: ");
+    scanf("%lf", &number);
+    printf("Введите степень: ");
+    scanf("%d", &power);
+
+    double result = pow_recursion(number, power, 1);
+    printf("Результат: %lf\n", result);
+}
 
 void task2C() {}
 
