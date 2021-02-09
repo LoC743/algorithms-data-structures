@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void task1();
 void task2();
@@ -70,26 +71,31 @@ void task1() {
 // a. без рекурсии;
 // b. рекурсивно;
 // c. *рекурсивно, используя свойство четности степени.
-int pow_it(int number, int power) {
-    int result = 1;
-    for (int i = 0; i < power; ++i) {
+double pow_it(double number, int power) {
+    double result = 1;
+    int abs_power = abs(power);
+    for (int i = 0; i < abs_power; ++i) {
         result *= number;
     }
-    
-    return result;
+
+    if (power > 0) {
+        return result;
+    } else {
+        return 1/result;
+    }
 }
 
 void task2A() {
-    int number = 0;
+    double number = 0;
     int power = 0;
 
     printf("\nВведите число: ");
-    scanf("%d", &number);
+    scanf("%lf", &number);
     printf("Введите степень: ");
     scanf("%d", &power);
 
-    int result = pow_it(number, power);
-    printf("Результат: %d\n", result);
+    double result = pow_it(number, power);
+    printf("Результат: %lf\n", result);
 }
 
 double pow_recursion(double number, int power, double multiply_by) {
