@@ -6,6 +6,7 @@
 
 void task1();
 void task2();
+void task3();
 
 int main() {
     char char_choice[3];
@@ -32,6 +33,7 @@ int main() {
                 task2();
                 break;
             case 3:
+                task3();
                 break;
 			default:
                 if (int_choice != exit_code) {
@@ -162,7 +164,7 @@ void task2C() {
 }
 
 void task2() {
-char char_choice[3];
+    char char_choice[3];
 	int int_choice = 0;
     int exit_code = -1;
 
@@ -187,6 +189,75 @@ char char_choice[3];
                 break;
             case 3:
                 task2C();
+                break;
+			default:
+                if (int_choice != exit_code) {
+                    printf("\n\033[1;31m[ОШИБКА!] Неверный ввод! Попробуйте еще раз.\n");
+                }
+                break;
+		}
+	} while(int_choice != exit_code);
+}
+
+// 3. Исполнитель Калькулятор преобразует целое число, записанное на экране. У исполнителя две команды, каждой команде присвоен номер:
+// Прибавь 1
+// Умножь на 2
+// Первая команда увеличивает число на экране на 1, вторая увеличивает это число в 2 раза. Сколько существует программ, которые число 3 преобразуют в число 20?
+// а) с использованием массива;
+// б) с использованием рекурсии.
+int calc_array() {
+    int array[21] = {0};
+
+    array[2] = 0;
+    array[3] = 1;
+
+    for (int i = 4; i < 21; ++i) {
+        if (i % 2 == 0) {
+            array[i] = array[i - 1] + array[i / 2];
+        } else {
+            array[i] = array[i - 1];
+        }
+    }
+
+    return array[20];
+}
+
+int calc_recursion(int i) {
+    if (i == 2) {
+        return 0;
+    } else if (i == 3) {
+        return 1;
+    }
+
+    if (i % 2 == 0) {
+        return calc_recursion(i - 1) + calc_recursion(i / 2);
+    } else {
+        return calc_recursion(i - 1);
+    }
+}
+
+void task3() {
+    char char_choice[3];
+	int int_choice = 0;
+    int exit_code = -1;
+
+	do {
+		printf("\n\033[0;37m2 Исполнитель Калькулятор преобразует целое число, записанное на экране: \n");
+        printf("-1. Назад\n");
+		printf("1. с использованием массива;\n");
+		printf("2. с использованием рекурсии.\n");
+
+        printf("Ваш выбор: ");
+		scanf("%s", char_choice);
+		int_choice = atoi(char_choice);
+
+		switch (int_choice)
+		{
+            case 1:
+                printf("\n[Массив]: Существует %d программ, которые число 3 преобразуют в число 20.\n", calc_array());
+                break;
+            case 2:
+                printf("\n[Рекурсия]: Существует %d программ, которые число 3 преобразуют в число 20.\n", calc_recursion(20));
                 break;
 			default:
                 if (int_choice != exit_code) {
