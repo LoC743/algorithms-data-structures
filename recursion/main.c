@@ -66,7 +66,7 @@ void task1() {
     scanf("%d", &number);
 
     int result = dec_to_bin(number, 0, 1);
-    printf("\nResult = %d\n", result);
+    printf("\nДесятичное число %d в двоичной системе счисления: %d\n", number, result);
 }
 
 // 2. Реализовать функцию возведения числа a в степень b:
