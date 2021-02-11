@@ -326,22 +326,19 @@ void task7() {
 
 // 8. Ввести a и b и вывести квадраты и кубы чисел от a до b.
 void task8() {
-    double first = 0;
-    double second = 0;
+    int first = 0;
+    int second = 0;
 
-    printf("\nВведите a: ");
-    scanf("%lf", &first);
-    printf("\nВведите b: ");
-    scanf("%lf", &second);
+    printf("\nВведите начальную границу a: ");
+    scanf("%d", &first);
+    printf("\nВведите конечную границу b: ");
+    scanf("%d", &second);
 
-    double first_square = first*first;
-    double second_square = second*second;
-
-    double first_cube = first_square*first;
-    double second_cube = second_square*second;
-
-    printf("\nКвадрат первого числа: %lf\nКуб первого числа: %lf\nКвадрат второго числа: %lf\nКуб второго числа: %lf\n",
-        first_square, first_cube, second_square, second_cube);
+    for (int number = first; number <= second; ++number) {
+        int square = number*number;
+        int cube = square*number;
+        printf("\nКвадрат для числа: %d = %d\nКуб для числа: %d = %d\n", number, square, number, cube);
+    }
 }
 
 // 9. Даны целые положительные числа N и K. Используя только операции сложения и вычитания, найти частное от деления нацело N на K, а также остаток от этого деления.
