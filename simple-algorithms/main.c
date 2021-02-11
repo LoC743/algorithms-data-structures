@@ -277,7 +277,10 @@ void task6() {
     }
 
     int age_mod = age % 10;
-    if (age_mod == 0 || age_mod == 5 || age_mod == 6 || age_mod == 7 || age_mod == 8 || age_mod == 9) {
+    int tens = age / 10;
+    if (tens == 1) {
+        printf("%d лет.\n", age);
+    } else if (age_mod == 0 || age_mod == 5 || age_mod == 6 || age_mod == 7 || age_mod == 8 || age_mod == 9) {
         printf("%d лет.\n", age);
     } else if (age_mod == 2 || age_mod == 3 || age_mod == 4) {
         printf("%d года.\n", age);
