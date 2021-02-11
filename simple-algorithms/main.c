@@ -408,7 +408,7 @@ void task11() {
         printf("Ваше число: ");
         scanf("%d", &input_number);
 
-        if (input_number > 0 && input_number % 10 == 8) {
+        if (input_number % 10 == 8) {
             ++count;
             sum += input_number;
         }
