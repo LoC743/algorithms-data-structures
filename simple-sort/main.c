@@ -7,6 +7,7 @@
 #include <time.h>
 
 void task1();
+void task2();
 
 int main() {
     char char_choice[3];
@@ -27,9 +28,10 @@ int main() {
 		switch (int_choice)
 		{
             case 1:
-            task1();
+                task1();
                 break;
             case 2:
+                task2();
                 break;
             case 3:
                 break;
@@ -113,7 +115,7 @@ void task1() {
 
     int* array = generate_array(array_size);
     int* array_copy = create_copy_of_array(array, array_size);
-    printf("Полученный массив: ");
+    // printf("Полученный массив: ");
     // print_array(array, array_size);
 
     // Сортировка пузырьком
@@ -140,4 +142,52 @@ void task1() {
 
     free(array);
     free(array_copy);
+}
+
+long int shaker_sort(int* array, int size) {
+    long int op_counter = 0;
+    int left = 0;
+    int right = size - 1;
+
+    while(left <= right) {
+        for (int i = right; i > left; --i) {
+            ++op_counter;
+            if (array[i - 1] > array[i]) {
+                swap(&array[i - 1], &array[i]);
+            }
+        }
+        ++left;
+        for (int i = left; i < right; ++i) {
+            ++op_counter;
+            if (array[i] > array[i + 1]) {
+                swap(&array[i], &array[i + 1]);
+            }
+        }
+        --right;
+    }
+
+    return op_counter;
+}
+
+void task2() {
+    int array_size = 0;
+
+    printf("\nВведите размер массива: ");
+    scanf("%d", &array_size);
+
+    int* array = generate_array(array_size);
+    // printf("Полученный массив: ");
+    // print_array(array, array_size);
+
+    clock_t begin = clock();
+    long int op_count = shaker_sort(array, array_size);
+    clock_t end = clock();
+
+    printf("\n[Shaker sort]: ");
+    // print_array(array, array_size);
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("\nЗатраченное время: %lf", time_spent);
+    printf("\nКоличество операций: %ld\n", op_count);
+
+    free(array);
 }
