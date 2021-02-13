@@ -83,12 +83,13 @@ void swap(int* first, int* second) {
     *first  = *second ^ *first;
 }
 
-int bubble_sort(int* array, int size) {
-    int op_counter = 0;
+unsigned long long bubble_sort(int* array, int size) {
+    unsigned long long op_counter = 0;
     for (int i = 0; i < size - 1; ++i) {
         for (int j = 0; j < size - 1; ++j) {
             ++op_counter;
             if (array[j] > array[j + 1]) {
+                ++op_counter;
                 swap(&array[j], &array[j + 1]);
             }
         }
@@ -96,12 +97,13 @@ int bubble_sort(int* array, int size) {
     return op_counter;
 }
 
-int bubble_sort_optimized(int* array, int size) {
-    int op_counter = 0;
+unsigned long long bubble_sort_optimized(int* array, int size) {
+    unsigned long long op_counter = 0;
     for (size_t i = 0; i + 1 < size; ++i) {
         for (size_t j = 0; j + 1 < size - i; ++j) {
             ++op_counter;
             if (array[j + 1] < array[j]) {
+                ++op_counter;
                 swap(&array[j], &array[j + 1]);
             }
         }
@@ -122,32 +124,32 @@ void task1() {
 
     // Сортировка пузырьком
     clock_t begin_bubble = clock();
-    int bubble_op = bubble_sort(array, array_size);
+    unsigned long long bubble_op = bubble_sort(array, array_size);
     clock_t end_bubble = clock();
 
     printf("\n\n[Bubble sort]: ");
     // print_array(array, array_size);
     double time_spent_bubble = (double)(end_bubble - begin_bubble) / CLOCKS_PER_SEC;
     printf("\nЗатраченное время: %lf", time_spent_bubble);
-    printf("\nКоличество операций: %d\n", bubble_op);
+    printf("\nКоличество операций: %llu\n", bubble_op);
 
     // Сортировка пузырьком с оптимизациями
     clock_t begin_bubble_op = clock();
-    int bubble_optimized_op = bubble_sort_optimized(array_copy, array_size);
+    unsigned long long bubble_optimized_op = bubble_sort_optimized(array_copy, array_size);
     clock_t end_bubble_op = clock();
 
     printf("\n[Bubble sort оптимизированный]: ");
     // print_array(array_copy, array_size);
     double time_spent_bubble_op = (double)(end_bubble_op - begin_bubble_op) / CLOCKS_PER_SEC;
     printf("\nЗатраченное время: %lf", time_spent_bubble_op);
-    printf("\nКоличество операций: %d\n", bubble_optimized_op);
+    printf("\nКоличество операций: %llu\n", bubble_optimized_op);
 
     free(array);
     free(array_copy);
 }
 
-long int shaker_sort(int* array, int size) {
-    long int op_counter = 0;
+unsigned long long shaker_sort(int* array, int size) {
+    unsigned long long op_counter = 0;
     int left = 0;
     int right = size - 1;
 
@@ -155,6 +157,7 @@ long int shaker_sort(int* array, int size) {
         for (int i = right; i > left; --i) {
             ++op_counter;
             if (array[i - 1] > array[i]) {
+                ++op_counter;
                 swap(&array[i - 1], &array[i]);
             }
         }
@@ -162,6 +165,7 @@ long int shaker_sort(int* array, int size) {
         for (int i = left; i < right; ++i) {
             ++op_counter;
             if (array[i] > array[i + 1]) {
+                ++op_counter;
                 swap(&array[i], &array[i + 1]);
             }
         }
@@ -182,14 +186,14 @@ void task2() {
     // print_array(array, array_size);
 
     clock_t begin = clock();
-    long int op_count = shaker_sort(array, array_size);
+    unsigned long long op_count = shaker_sort(array, array_size);
     clock_t end = clock();
 
     printf("\n[Shaker sort]: ");
     // print_array(array, array_size);
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("\nЗатраченное время: %lf", time_spent);
-    printf("\nКоличество операций: %ld\n", op_count);
+    printf("\nКоличество операций: %llu\n", op_count);
 
     free(array);
 }
