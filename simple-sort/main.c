@@ -9,6 +9,7 @@
 void task1();
 void task2();
 void task3();
+void task4();
 
 int main() {
     char char_choice[3];
@@ -21,6 +22,7 @@ int main() {
 		printf("1. Сравнение обычной и оптимизированной реализации пузырьковой сортировки\n");
 		printf("2. Шейкерная сортировка\n");
 		printf("3. Бинарный алгоритм поиска\n");
+        printf("4. Сортировки: Пузырьковая, Шейкер, Вставки, Выбор\n");
 
         printf("Ваш выбор: ");
 		scanf("%s", char_choice);
@@ -36,6 +38,9 @@ int main() {
                 break;
             case 3:
                 task3();
+                break;
+            case 4:
+                task4();
                 break;
 			default:
                 if (int_choice != exit_code) {
@@ -78,6 +83,7 @@ void print_array(int* array, int size) {
 }
 
 void swap(int* first, int* second) {
+    if (*first == *second) { return; }
     *first  = *first  ^ *second;
     *second = *first  ^ *second;
     *first  = *second ^ *first;
@@ -270,4 +276,100 @@ void task3() {
     }
 
     free(array);
+}
+
+// 4. *Подсчитать количество операций для каждой из сортировок и сравнить его с асимптотической сложностью алгоритма.
+unsigned long long insertion_sort(int* array, int size) {
+    unsigned long long op_counter = 0;
+    for (size_t i = 1; i < size; ++i) {
+        int item = array[i];
+        size_t j = i;
+
+        op_counter += 2;
+        while(j > 0 && array[j - 1] > item) {
+            ++op_counter;
+            array[j] = array[j - 1];
+            --j;
+        }
+
+        ++op_counter;
+        array[j] = item;
+    }
+
+    return op_counter;
+}
+
+unsigned long long selection_sort(int* array, int size) {
+    unsigned long long op_counter = 0;
+    for (size_t i = 0; i < size - 1 ; ++i) {
+        size_t min_index = i;
+        for (size_t j = i + 1; j < size; ++j) {
+            ++op_counter;
+            if (array[j] < array[min_index]) {
+                ++op_counter;
+                min_index = j;
+            }
+        }
+        ++op_counter;
+        swap(&array[min_index], &array[i]);
+    }
+    return op_counter;
+}
+
+void task4() {
+    int array_size = 0;
+
+    printf("\nВведите размер массива: ");
+    scanf("%d", &array_size);
+
+    int* bubble_array = generate_array(array_size, 1001);
+    int* shaker_array = create_copy_of_array(bubble_array, array_size);
+    int* insertion_array = create_copy_of_array(bubble_array, array_size);
+    int* selection_array = create_copy_of_array(bubble_array, array_size);
+
+    // Bubble sort
+    clock_t bubble_begin = clock();
+    unsigned long long bubble_op_count = bubble_sort_optimized(bubble_array, array_size);
+    clock_t bubble_end = clock();
+
+    printf("\n[Bubble sort]");
+    double bubble_time_spent = (double)(bubble_end - bubble_begin) / CLOCKS_PER_SEC;
+    printf("\nЗатраченное время: %lf", bubble_time_spent);
+    printf("\nКоличество операций: %llu\n", bubble_op_count);
+
+    // Shaker sort
+    clock_t shaker_begin = clock();
+    unsigned long long shaker_op_count = shaker_sort(shaker_array, array_size);
+    clock_t shaker_end = clock();
+
+    printf("\n[Shaker sort]");
+    double shaker_time_spent = (double)(shaker_end - shaker_begin) / CLOCKS_PER_SEC;
+    printf("\nЗатраченное время: %lf", shaker_time_spent);
+    printf("\nКоличество операций: %llu\n", shaker_op_count);
+
+    // Insertion sort
+    clock_t insertion_begin = clock();
+    unsigned long long insertion_op_count = insertion_sort(insertion_array, array_size);
+    clock_t insertion_end = clock();
+
+    printf("\n[Insertion sort]");
+    double insertion_time_spent = (double)(insertion_end - insertion_begin) / CLOCKS_PER_SEC;
+    printf("\nЗатраченное время: %lf", insertion_time_spent);
+    printf("\nКоличество операций: %llu\n", insertion_op_count);
+
+    // Selection sort
+    clock_t selection_begin = clock();
+    unsigned long long selection_op_count = selection_sort(selection_array, array_size);
+    clock_t selection_end = clock();
+
+    printf("\n[Selection sort]");
+    double selection_time_spent = (double)(selection_end - selection_begin) / CLOCKS_PER_SEC;
+    printf("\nЗатраченное время: %lf", selection_time_spent);
+    printf("\nКоличество операций: %llu\n", selection_op_count);
+
+    // Free memory
+    free(bubble_array);
+    free(shaker_array);
+    free(insertion_array);
+    free(selection_array);
 }
