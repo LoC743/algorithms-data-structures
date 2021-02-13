@@ -105,4 +105,53 @@ void shaker_sort(int* array, int size) {
 
 ### 3. Реализовать бинарный алгоритм поиска в виде функции, которой передается отсортированный массив. Функция возвращает индекс найденного элемента или -1, если элемент не найден.
 
+Реализация алгоритма бинарного поиска(рекурсивно):
+
+```c
+int binary_search_recursive(int* array, int left, int right, int search) {
+    if (right >= left) {
+        int mid = left + (right - left) / 2;
+
+        if (array[mid] == search)
+            return mid;
+        if (array[mid] > search)
+            return binary_search_recursive(array, left, mid - 1, search);
+
+        return binary_search_recursive(array, mid + 1, right, search);
+    }
+    return -1;
+}
+```
+
+Реализация алгоритма бинарного поиска(итеративно):
+
+```c
+int binary_search(int* array, int left, int right, int search) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (array[mid] == search)
+            return mid;
+        if (array[mid] < search)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1;
+}
+```
+
+#### Сложность по времени:
+
+Худшее время: **O(log n)**
+
+Среднее время: **O(log n)**
+
+Лучшее время: **O(1)**
+
+#### Затраты памяти:
+
+Итеративный подход: **O(1)**
+Рекурсивный подход: **O(log n)**
+
 ### 4. Подсчитать количество операций для каждой из сортировок и сравнить его с асимптотической сложностью алгоритма.

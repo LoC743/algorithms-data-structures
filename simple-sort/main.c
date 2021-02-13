@@ -8,6 +8,7 @@
 
 void task1();
 void task2();
+void task3();
 
 int main() {
     char char_choice[3];
@@ -34,6 +35,7 @@ int main() {
                 task2();
                 break;
             case 3:
+                task3();
                 break;
 			default:
                 if (int_choice != exit_code) {
@@ -46,7 +48,7 @@ int main() {
     return 0;
 }
 
-int* generate_array(size_t size) {
+int* generate_array(size_t size, int rand_to) {
     if (size <= 0) { 
         int* empty_array = (int*) calloc(0, sizeof(int));
         return empty_array;
@@ -54,7 +56,7 @@ int* generate_array(size_t size) {
 
     int* array = (int*) calloc(size, sizeof(int));
     for (size_t i = 0; i < size; ++i) {
-        array[i] = rand() % 101;
+        array[i] = rand() % rand_to;
     }
 
     return array;
@@ -113,7 +115,7 @@ void task1() {
     printf("\nВведите размер массива: ");
     scanf("%d", &array_size);
 
-    int* array = generate_array(array_size);
+    int* array = generate_array(array_size, 100);
     int* array_copy = create_copy_of_array(array, array_size);
     // printf("Полученный массив: ");
     // print_array(array, array_size);
@@ -175,7 +177,7 @@ void task2() {
     printf("\nВведите размер массива: ");
     scanf("%d", &array_size);
 
-    int* array = generate_array(array_size);
+    int* array = generate_array(array_size, 100);
     // printf("Полученный массив: ");
     // print_array(array, array_size);
 
@@ -188,6 +190,80 @@ void task2() {
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("\nЗатраченное время: %lf", time_spent);
     printf("\nКоличество операций: %ld\n", op_count);
+
+    free(array);
+}
+
+// 3. Реализовать бинарный алгоритм поиска в виде функции, которой передается отсортированный массив.
+// Функция возвращает индекс найденного элемента или -1, если элемент не найден.
+int binary_search_recursive(int* array, int left, int right, int search) {
+    if (right >= left) {
+        int mid = left + (right - left) / 2;
+
+        if (array[mid] == search)
+            return mid;
+        if (array[mid] > search)
+            return binary_search_recursive(array, left, mid - 1, search);
+
+        return binary_search_recursive(array, mid + 1, right, search);
+    }
+    return -1;
+}
+
+int binary_search(int* array, int left, int right, int search) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (array[mid] == search)
+            return mid;
+        if (array[mid] < search)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1;
+}
+
+int compare_function(const void* first, const void* second) {
+    int* first_int = (int*) first;
+    int* second_int = (int*) second;
+    return *first_int - *second_int;
+}
+
+void task3() {
+    int array_size = 0;
+    int element = 0;
+
+    printf("\nВведите размер массива: ");
+    scanf("%d", &array_size);
+
+    int* array = generate_array(array_size, 100);
+    printf("\nСгенерированный массив: ");
+    qsort (array, array_size, sizeof(*array), compare_function);
+    print_array(array, array_size);
+
+    printf("\nВведите элемент, индекс которго Вы хотите найти: ");
+    scanf("%d", &element);
+
+    clock_t begin_rec = clock();
+    int element_index_rec = binary_search_recursive(array, 0, array_size-1, element);
+    clock_t end_rec = clock();
+
+    clock_t begin = clock();
+    int element_index = binary_search(array, 0, array_size-1, element);
+    clock_t end = clock();
+
+    double time_spent_rec = (double)(end_rec - begin_rec) / CLOCKS_PER_SEC;
+    printf("\n[Бинарный поиск(рекурсия)]: Затраченное время: %lf", time_spent_rec);
+    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("\n[Бинарный поиск(итерации)]:Затраченное время: %lf\n", time_spent);
+
+    if (element_index_rec == -1 && element_index == -1) {
+        printf("\nВы ввели: %d. Такого элемента нет в массиве.", element);
+    } else {
+        printf("\n[Бинарный поиск(рекурсия)]: Вы ввели: %d. Индекс элемента: %d", element, element_index_rec);
+        printf("\n[Бинарный поиск(итерации)]: Вы ввели: %d. Индекс элемента: %d", element, element_index);
+    }
 
     free(array);
 }
