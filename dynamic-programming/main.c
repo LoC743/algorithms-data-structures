@@ -164,6 +164,72 @@ void task2() {
 
 // 3. ***Требуется обойти конем шахматную доску размером NxM, пройдя через все поля доски по одному разу.
 // Здесь алгоритм решения такой же, как в задаче о 8 ферзях. Разница только в проверке положения коня.
+int is_safe(int x, int y, int** matrix, int rows, int columns) {
+    return (x >= 0 && x < rows && y >= 0 && y < columns
+            && matrix[x][y] == -1);
+}
+
+void print_knight_tour(int** matrix, int rows, int columns) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j)
+            printf(" %2d ", matrix[i][j]);
+        printf("\n");
+    }
+}
+
+int king_tour_util(int x, int y, int move_i, int** matrix, int rows, int columns, int x_move[8], int y_move[8]) {
+    if (move_i == rows * columns)
+        return 1;
+
+    for (int k = 0; k < 8; ++k) {
+        int next_x = x + x_move[k];
+        int next_y = y + y_move[k];
+        if (is_safe(next_x, next_y, matrix, rows, columns)) {
+            matrix[next_x][next_y] = move_i;
+            if (king_tour_util(next_x, next_y, move_i + 1, matrix, rows, columns, x_move, y_move) == 1)
+                return 1;
+            else
+                matrix[next_x][next_y] = -1;
+        }
+    }
+
+    return 0;
+}
+
+void king_tour(int rows, int columns) {
+    int** matrix = calloc(rows, sizeof(int*));
+    for (int i = 0; i < rows; ++i) {
+        matrix[i] = calloc(columns, sizeof(int));
+    }
+
+    for (int x = 0; x < rows; ++x) {
+        for (int y = 0; y < columns; ++y) {
+            matrix[x][y] = -1;
+        }
+    }
+
+    int x_move[8] = { 2, 1, -1, -2, -2, -1, 1, 2 };
+    int y_move[8] = { 1, 2, 2, 1, -1, -2, -2, -1 };
+
+    matrix[0][0] = 0;
+
+    if (king_tour_util(0, 0, 1, matrix, rows, columns, x_move, y_move) == 0) {
+        printf("\nРешения не существует.\n");
+        return;
+    }
+    else {
+        print_knight_tour(matrix, rows, columns);
+    }
+}
+
 void task3() {
-    
+    int rows = 0;
+    int columns = 0;
+
+    printf("\nВведите количество строк матрицы: ");
+    scanf("%d", &rows);
+    printf("\nВведите количество столбцов матрицы: ");
+    scanf("%d", &columns);
+
+    king_tour(rows, columns);
 }
