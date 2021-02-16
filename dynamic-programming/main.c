@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 void task1();
@@ -132,7 +133,33 @@ void task1() {
 // Нужно чтобы пользователь ввел 2 строки которые сформируют размер матрицы.
 // Затем строка за строкой рассчитываем значения элементов. Решение без рекурсии, цикл for внутри другого for.
 void task2() {
-    
+    const int max_size = 20;
+    char first[max_size];
+    char second[max_size];
+    printf("Введите первую строку: ");
+    scanf("%s", first);
+    printf("Введите вторую строку: ");
+    scanf("%s", second);
+
+    int first_len = strlen(first);
+    int second_len = strlen(second);
+
+    char max_seq[max_size];
+    int seq_count = 0;
+    int last_seq_idx = 0;
+    for (int i = 0; i < first_len; ++i) {
+        for (int j = last_seq_idx; j < second_len; ++j) {
+            if (first[i] == second[j]) {
+                max_seq[seq_count] = first[i];
+                ++seq_count;
+                last_seq_idx = j;
+                break;
+            }
+        }
+    }
+    max_seq[seq_count] = '\0';
+
+    printf("\nНаибольшая общая последовательность: %s\n", max_seq);
 }
 
 // 3. ***Требуется обойти конем шахматную доску размером NxM, пройдя через все поля доски по одному разу.
