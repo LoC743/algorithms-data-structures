@@ -52,8 +52,79 @@ int main() {
 // 1 1 1
 // 0 1 0
 // 0 1 0
-void task1() {
+int** read_file(int rows, int columns) {
+    FILE *fptr;
+    fptr = fopen("task1-input.txt","r");
 
+    if(fptr == NULL) {
+        printf("[Ошибка]: Файл не найден.");
+        int** empty_matrix = (int**) calloc(0, sizeof(int*));
+        return empty_matrix;
+    }
+
+    int** matrix = (int**) calloc(rows, sizeof(int*));
+    for (int i = 0; i < rows; ++i) {
+        matrix[i] = calloc(columns, sizeof(int));
+    }
+
+    matrix[rows] = NULL;
+    int value = 0;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            fscanf(fptr, "%d", &value);
+            matrix[i][j] = value;
+        }
+    }
+
+    fclose(fptr);
+
+    return matrix;
+}
+
+void print_matrix(int** matrix, int rows, int columns) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int routes(int i, int j, int** map) {
+    if (i == 0 || j == 0)
+        return 1;
+    else if (map[j][i] == 0)
+        return 0;
+    else
+        return routes(i - 1, j, map) + routes(i, j - 1, map);
+}
+
+void task1() {
+    int rows = 0;
+    int columns = 0;
+
+    printf("\nВведите количество строк матрицы: ");
+    scanf("%d", &rows);
+    printf("\nВведите количество столбцов матрицы: ");
+    scanf("%d", &columns);
+    
+    int** matrix = read_file(rows, columns);
+    printf("\nСчитанная матрица:\n");
+    print_matrix(matrix, rows, columns);
+
+    printf("\nРешение:\n");
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            printf("%d ", routes(i, j, matrix));
+        }
+        printf("\n");
+    }
+
+    // Free memory
+    for (int i = 0; i < rows; ++i) {
+        free(matrix[i]);
+    }
+    free(matrix);
 }
 
 // 2. Решить задачу о нахождении длины максимальной последовательности с помощью матрицы.
