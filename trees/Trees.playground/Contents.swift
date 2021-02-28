@@ -74,7 +74,7 @@ class BinaryNode<Element>: CustomStringConvertible {
     // MARK: - CustomStringConvertible
     
     var description: String {
-        diagram(for: self)
+        return diagram(for: self)
     }
     
     func diagram(for node: BinaryNode?,
