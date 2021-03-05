@@ -35,3 +35,17 @@ func countingSort(array: [Int]) -> [Int] {
 
 let countingSortResult = countingSort(array: arrayToSort)
 print("Counting sort: \(countingSortResult)")
+
+func quickSort(array: [Int]) -> [Int] {
+    guard array.count > 1 else { return array }
+    
+    let pivot = array[array.count/2]
+    let less = array.filter { $0 < pivot }
+    let equal = array.filter { $0 == pivot }
+    let greater = array.filter { $0 > pivot }
+    
+    return quickSort(array: less) + equal + quickSort(array: greater)
+}
+
+let quickSortResult = quickSort(array: arrayToSort)
+print("Quick sort: \(quickSortResult)")
